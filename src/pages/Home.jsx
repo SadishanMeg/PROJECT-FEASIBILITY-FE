@@ -15,11 +15,14 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import samplePDF from "../assets/template.pdf"; // Import the PDF file
+import { FaHome } from "react-icons/fa";
+
 
 
 
 const Header = () => {
     const [loggedUser, setLoggedUser] = useState({});
+    const navigate = useNavigate(); // Initialize navigate
 
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem("user"));
@@ -27,8 +30,10 @@ const Header = () => {
             setLoggedUser(user);
         }
     }, []);
+
     return (
         <header className="fixed top-0 left-0 w-full flex justify-between items-center p-4 bg-white shadow-md z-50">
+            {/* Logo */}
             <div className="flex items-center gap-2">
                 <img src={HDimg} alt="Logo" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full" />
                 <span className="text-xl sm:text-2xl font-bold">
@@ -38,17 +43,29 @@ const Header = () => {
                     <span className="text-orange-500">N</span>
                 </span>
             </div>
-            <div className="flex items-center gap-2">
-                <img src={prfImage} alt="User" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full" />
-                <div className="hidden sm:block">
-                    <p className="text-gray-900 font-medium text-sm sm:text-base">{loggedUser.name}</p>
-                    <p className="text-gray-500 text-xs sm:text-sm">User</p>
+
+            {/* Profile & Dashboard Button */}
+            <div className="flex items-center gap-4">
+                {/* Dashboard Button */}
+                <button
+                    onClick={() => navigate("/dashboard")}
+                    className="p-2 rounded-md bg-blue-500 text-white hover:bg-blue-600 transition"
+                >
+                    <FaHome size={20} />
+                </button>
+
+                {/* Profile */}
+                <div className="flex items-center gap-2">
+                    <img src={prfImage} alt="User" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full" />
+                    <div className="hidden sm:block">
+                        <p className="text-gray-900 font-medium text-sm sm:text-base">{loggedUser.name}</p>
+                        <p className="text-gray-500 text-xs sm:text-sm">User</p>
+                    </div>
                 </div>
             </div>
         </header>
     );
 };
-
 
 const WhyChooseUs = () => {
     return (

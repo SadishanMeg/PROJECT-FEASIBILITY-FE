@@ -5,11 +5,17 @@ import NavBar from "../components/Navbar";
 
 const Body = () => {
     const [search, setSearch] = useState("");
-    const [fromDate, setFromDate] = useState("08/02/2025");
-    const [toDate, setToDate] = useState("08/02/2025");
     const [projects, setProjects] = useState([]);
     const [loading, setLoading] = useState(true);
     const [email, setEmail] = useState("");
+
+    const getTodayDate = () => {
+        const today = new Date();
+        return today.toLocaleDateString("en-US"); // Format: MM/DD/YYYY
+    };
+    
+    const [fromDate, setFromDate] = useState(getTodayDate());
+    const [toDate, setToDate] = useState(getTodayDate());
 
     // Fetch user email from localStorage
     useEffect(() => {
